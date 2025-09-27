@@ -1,0 +1,20 @@
+
+services:
+  vote-backend:
+    container_name: vote-backend
+    image: ghcr.io/phantasma-io/community-voting-backend
+    volumes:
+      - ./config.toml:/config.toml
+      - ./data-new:/data
+    ports:
+      - 3009:3009
+    environment:
+      - RUST_LOG=info
+
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+
+networks: {}
+
+
