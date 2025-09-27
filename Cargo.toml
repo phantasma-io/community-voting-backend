@@ -1,5 +1,5 @@
 [package]
-name = "pha-vote"
+name = "community-voting-backend"
 version = "0.1.0"
 edition = "2024"
 
@@ -28,6 +28,3 @@ toml = { version = "0.8.*" }
 reqwest = { version = "0.12.15", features = ["json"] }
 
 base16 = "0.2.1"
-# base64 = { workspace = true }
-# uuid = { workspace = true, features = ["v4"] }
-
