@@ -1,3 +1,5 @@
+use std::time::{SystemTime, UNIX_EPOCH};
+
 use anyhow::anyhow;
 use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
@@ -89,6 +91,9 @@ pub struct Candidate {
 
 #[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
 pub struct Vote {
+    #[serde(default="now_ms")]
+    pub time_ms: u128,
+
     pub addr: String,
     // base16 string
     pub msg: String,
@@ -153,3 +158,10 @@ pub async fn verify_vote(explorer_api_url: &str, vote: &Vote) -> Result<bool, an
         Err(_) => Err(anyhow!("FAIL verify sig, result: {res}")),
     }
 }
+
+pub fn now_ms() -> u128 {
+    let start = SystemTime::now();
+    let since_the_epoch = start.duration_since(UNIX_EPOCH).unwrap();
+    since_the_epoch.as_millis()
+}
+
